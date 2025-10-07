@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>JEE Mains 2026 Countdown</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Rubik:500&display=swap" rel="stylesheet" />
   <style>
@@ -104,6 +105,30 @@
       max-height: 450px;
       overflow-y: auto;
     }
+    @media (max-width: 700px) {
+  body { font-size: 15px; }
+  #timer { font-size: 1.6em; }
+  .motivate { font-size: 1em; padding: 12px 15px; }
+  .quote-box { font-size: 1em; padding: 14px; }
+  .chapters-list li { font-size: 0.95em; padding: 6px 5px 6px 24px; }
+}
+    @media (max-width: 700px) {
+  .main-content {
+    width: 98vw;
+    margin: 10px auto;
+    padding: 15px 3vw;
+  }
+  .syllabus-img {
+    max-width: 95vw;
+  }
+}
+
+    @media (max-width: 700px) {
+  .accent, .accent2 {
+    display: none;
+  }
+}
+
     .chapters-title {
       font-size: 1.13em;
       color: #FFD600;
@@ -112,11 +137,14 @@
       text-align: center;
     }
     .chapters-list {
-      list-style-type: none;
-      padding-left: 0;
-      column-count: 2;
-      column-gap: 15px;
-    }
+  list-style-type: none;
+  padding-left: 0;
+  column-count: 1;
+}
+
+@media (min-width: 700px) {
+  .chapters-list { column-count: 2; }
+}
     .chapters-list li {
       font-size: 1.05em;
       background: rgba(45,45,75,0.13);
@@ -380,3 +408,4 @@
 
 </body>
 </html>
+
