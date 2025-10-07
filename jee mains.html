@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>JEE Mains 2026 Countdown</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Rubik:500&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      color: #fff;
+      background: linear-gradient(135deg, #23272A 0%, #274690 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+    .banner {
+      background: linear-gradient(90deg, #ff2e63, #fd1d1d);
+      color: #fff;
+      font-size: 1.6em;
+      padding: 22px 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      z-index: 90;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { background: linear-gradient(90deg, #ff2e63, #fd1d1d);}
+      50% { background: linear-gradient(90deg, #fd1d1d, #ff2e63);}
+    }
+    .main-content {
+      margin-top: 130px;
+      max-width: 670px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 40px 5vw;
+      background: rgba(31, 30, 72, 0.78);
+      border-radius: 18px;
+      box-shadow: 0 6px 36px rgba(0,0,50,0.18);
+      position: relative;
+    }
+    .desc {
+      font-size: 1.27em;
+      color: #FFD600;
+      margin-bottom: 13px;
+      font-weight: 600;
+      text-shadow: 0 2px 9px #240200dd;
+      text-align: center;
+    }
+    #timer {
+      font-size: 2.5em;
+      margin: 30px 0 20px 0;
+      letter-spacing: 2px;
+      font-family: 'Roboto Mono', 'Consolas', monospace;
+      text-align: center;
+    }
+    .motivate {
+      font-size: 1.18em;
+      background: #ffdc00bb;
+      color: #343434;
+      padding: 16px 17px;
+      margin: 26px 0 8px 0;
+      border-radius: 15px;
+      box-shadow: 0 3px 14px rgba(255,72,88,0.12);
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .quote-box {
+      background: #73ffeb22;
+      color: #81f7e5;
+      border-radius: 11px;
+      padding: 17px;
+      text-align: center;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 12px #26e4d7cc;
+      font-size: 1.09em;
+      font-style: italic;
+    }
+    .syllabus-title {
+      font-size: 1.09em;
+      color: #f9fafb;
+      margin-top: 18px;
+      margin-bottom: 6px;
+      text-align: center;
+      font-weight: bold;
+      background: #2b3e70b6;
+      padding: 7px 4px;
+      border-radius: 7px;
+    }
+    .chapters-box {
+      background: rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 20px 18px;
+      margin-top: 24px;
+      margin-bottom: 20px;
+      color: #fff;
+      box-shadow: 0 2px 10px #292e76cc;
+      max-height: 450px;
+      overflow-y: auto;
+    }
+    .chapters-title {
+      font-size: 1.13em;
+      color: #FFD600;
+      margin-bottom: 12px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .chapters-list {
+      list-style-type: none;
+      padding-left: 0;
+      column-count: 2;
+      column-gap: 15px;
+    }
+    .chapters-list li {
+      font-size: 1.05em;
+      background: rgba(45,45,75,0.13);
+      margin: 6px 0;
+      border-radius: 7px;
+      padding: 6px 10px 6px 36px;
+      position: relative;
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+      break-inside: avoid;
+      cursor: pointer;
+      user-select: none;
+    }
+    .chapters-list input[type="checkbox"] {
+      margin-right: 15px;
+      transform: scale(1.15);
+      accent-color: #fd1d1d;
+      cursor: pointer;
+    }
+    .progress-bar-wrap {
+      margin: 24px auto 0 auto;
+      width: 96%;
+      max-width: 550px;
+      text-align: center;
+    }
+    .progress-label {
+      font-weight: bold;
+      color: #FFD600;
+      margin-bottom: 5px;
+      text-align: center;
+    }
+    #chapter-progress {
+      width: 100%;
+      height: 22px;
+      border-radius: 11px;
+      box-shadow: 0 2px 10px #27469066;
+      background: #292e76;
+      border: none;
+    }
+    #chapter-progress::-webkit-progress-bar {
+      background: #292e76;
+      border-radius: 11px;
+    }
+    #chapter-progress::-webkit-progress-value {
+      background: linear-gradient(90deg, #fd1d1d 40%, #FFD600 90%);
+      border-radius: 11px;
+    }
+    #chapter-progress::-moz-progress-bar {
+      background: linear-gradient(90deg, #fd1d1d 40%, #FFD600 90%);
+      border-radius: 11px;
+    }
+    .progress-percent {
+      font-size: 1.08em;
+      color: #FFD600;
+      margin-left: 8px;
+      font-family: Rubik, Arial, sans-serif;
+      font-weight: 600;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.97em;
+      color: #c7c7c7;
+      margin-top: 60px;
+      margin-bottom: 20px;
+      opacity: .88;
+    }
+    .accent {
+      position: absolute;
+      left: -60px;
+      top: 55vh;
+      width: 180vw;
+      height: 9px;
+      background: linear-gradient(90deg, #ffdc00 0%, #ff2e63 80%);
+      opacity: .16;
+      transform: rotate(-6deg);
+    }
+    .accent2 {
+      position: absolute;
+      right: -80px;
+      top: 70vh;
+      width: 180vw;
+      height: 7px;
+      background: linear-gradient(90deg, #274690 0%, #fedcaa 80%);
+      opacity: .09;
+      transform: rotate(8deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    &#9888; Only <span id="daysLeft"></span> days left! Give your best for JEE Mains 2026! &#9888;
+  </div>
+  <div class="accent"></div>
+  <div class="accent2"></div>
+  <div class="main-content">
+    <div class="desc">
+      Countdown to January 20, 2026, 12:00 AM IST (JEE Mains 2026)
+    </div>
+    <div id="timer"></div>
+    <div class="motivate">
+      Every second counts! Stay focused, revise tough topics, and practice MCQs & previous year papers.<br>Your hard work now shapes your JEE rank!
+    </div>
+    <div class="quote-box" id="daily-quote">
+      "Success is the sum of small efforts, repeated day in and day out."
+    </div>
+
+    <div class="syllabus-title">
+      Chapter-wise Syllabus Checklist
+    </div>
+    <div class="chapters-box">
+      <ul class="chapters-list" id="chapters-list">
+        <!-- Physics -->
+        <li><input type="checkbox" class="chapter" />Physics and Measurement</li>
+        <li><input type="checkbox" class="chapter" />Kinematics</li>
+        <li><input type="checkbox" class="chapter" />Laws of Motion</li>
+        <li><input type="checkbox" class="chapter" />Work, Energy, and Power</li>
+        <li><input type="checkbox" class="chapter" />Rotational Motion</li>
+        <li><input type="checkbox" class="chapter" />Gravitation</li>
+        <li><input type="checkbox" class="chapter" />Properties of Solids and Liquids</li>
+        <li><input type="checkbox" class="chapter" />Thermodynamics</li>
+        <li><input type="checkbox" class="chapter" />Kinetic Theory of Gases</li>
+        <li><input type="checkbox" class="chapter" />Oscillations and Waves</li>
+        <li><input type="checkbox" class="chapter" />Electrostatics</li>
+        <li><input type="checkbox" class="chapter" />Current Electricity</li>
+        <li><input type="checkbox" class="chapter" />Magnetic Effects of Current and Magnetism</li>
+        <li><input type="checkbox" class="chapter" />Electromagnetic Induction</li>
+        <li><input type="checkbox" class="chapter" />Alternating Currents</li>
+        <li><input type="checkbox" class="chapter" />Electromagnetic Waves</li>
+        <li><input type="checkbox" class="chapter" />Ray Optics</li>
+        <li><input type="checkbox" class="chapter" />Wave Optics</li>
+        <li><input type="checkbox" class="chapter" />Dual Nature of Matter and Radiation</li>
+        <li><input type="checkbox" class="chapter" />Atoms</li>
+        <li><input type="checkbox" class="chapter" />Nuclei</li>
+        <li><input type="checkbox" class="chapter" />Electronic Devices</li>
+        <li><input type="checkbox" class="chapter" />Communication Systems</li>
+
+        <!-- Chemistry -->
+        <li><input type="checkbox" class="chapter" />Some Basic Concepts in Chemistry</li>
+        <li><input type="checkbox" class="chapter" />States of Matter</li>
+        <li><input type="checkbox" class="chapter" />Atomic Structure</li>
+        <li><input type="checkbox" class="chapter" />Chemical Bonding and Molecular Structure</li>
+        <li><input type="checkbox" class="chapter" />Chemical Thermodynamics</li>
+        <li><input type="checkbox" class="chapter" />Solutions</li>
+        <li><input type="checkbox" class="chapter" />Equilibrium</li>
+        <li><input type="checkbox" class="chapter" />Redox Reactions</li>
+        <li><input type="checkbox" class="chapter" />Electrochemistry</li>
+        <li><input type="checkbox" class="chapter" />Chemical Kinetics</li>
+        <li><input type="checkbox" class="chapter" />Surface Chemistry</li>
+        <li><input type="checkbox" class="chapter" />Classification of Elements and Periodicity in Properties</li>
+        <li><input type="checkbox" class="chapter" />Hydrogen</li>
+        <li><input type="checkbox" class="chapter" />s-Block</li>
+        <li><input type="checkbox" class="chapter" />p-Block</li>
+        <li><input type="checkbox" class="chapter" />d- and f-Block Elements</li>
+        <li><input type="checkbox" class="chapter" />Co-ordination Compounds</li>
+        <li><input type="checkbox" class="chapter" />Environmental Chemistry</li>
+        <li><input type="checkbox" class="chapter" />General Principles and Processes of Isolation of Metals</li>
+        <li><input type="checkbox" class="chapter" />Some Basic Principles of Organic Chemistry</li>
+        <li><input type="checkbox" class="chapter" />Purification and Characterization of Organic Compounds</li>
+        <li><input type="checkbox" class="chapter" />Hydrocarbons</li>
+        <li><input type="checkbox" class="chapter" />Organic Compounds containing Halogens, Oxygen, Nitrogen</li>
+        <li><input type="checkbox" class="chapter" />Polymers</li>
+        <li><input type="checkbox" class="chapter" />Biomolecules</li>
+        <li><input type="checkbox" class="chapter" />Chemistry in Everyday Life</li>
+        <li><input type="checkbox" class="chapter" />Principles Related to Practical Chemistry</li>
+
+        <!-- Mathematics -->
+        <li><input type="checkbox" class="chapter" />Sets</li>
+        <li><input type="checkbox" class="chapter" />Relations, and Functions</li>
+        <li><input type="checkbox" class="chapter" />Complex Numbers</li>
+        <li><input type="checkbox" class="chapter" />Quadratic Equations</li>
+        <li><input type="checkbox" class="chapter" />Matrices and Determinants</li>
+        <li><input type="checkbox" class="chapter" />Permutations and Combinations</li>
+        <li><input type="checkbox" class="chapter" />Binomial Theorem and its Simple Applications</li>
+        <li><input type="checkbox" class="chapter" />Sequences and Series</li>
+        <li><input type="checkbox" class="chapter" />Limit, Continuity, and Differentiability</li>
+        <li><input type="checkbox" class="chapter" />MOD</li>
+        <li><input type="checkbox" class="chapter" />AOD</li>
+        <li><input type="checkbox" class="chapter" />Indefinite Integration</li>
+        <li><input type="checkbox" class="chapter" />Definite Integration</li>
+        <li><input type="checkbox" class="chapter" />Applications of Integration</li>
+        <li><input type="checkbox" class="chapter" />Differential Equations</li>
+        <li><input type="checkbox" class="chapter" />Co-ordinate Geometry</li>
+        <li><input type="checkbox" class="chapter" />Vector Algebra</li>
+        <li><input type="checkbox" class="chapter" />3-D</li>
+        <li><input type="checkbox" class="chapter" />Statistics</li>
+        <li><input type="checkbox" class="chapter" />Probability</li>
+        <li><input type="checkbox" class="chapter" />Trigonometry</li>
+      </ul>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-label">Syllabus Completed:</div>
+      <progress id="chapter-progress" value="0" max="100"></progress>
+      <span class="progress-percent" id="chapter-progress-percent">0%</span>
+    </div>
+  </div>
+  <div class="footer">
+    Powered by your dedication & AI reminders | All the best, Shubham Sharma!
+  </div>
+  <script>
+  function updateCountdown() {
+    const target = new Date("2026-01-20T00:00:00+05:30").getTime();
+    const now = new Date().getTime();
+    const diff = target - now;
+    if (diff <= 0) {
+      document.getElementById("timer").innerHTML = "Time's up!";
+      document.getElementById("daysLeft").innerHTML = "0";
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById("timer").innerHTML =
+      days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+    document.getElementById("daysLeft").innerText = days;
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  const quotes = [
+    "Push yourself, because no one else is going to do it for you.",
+    "Great things never come from comfort zones.",
+    "Don't watch the clock. Do what it does – keep going.",
+    "Success is the sum of small efforts, repeated day in and day out.",
+    "Every day brings new opportunities and new lessons.",
+    "Work hard in silence, let your success make the noise.",
+    "Believe in yourself more than anyone else.",
+    "Victory is not always winning the battle... but rising every time you fall."
+  ];
+  document.getElementById("daily-quote").innerText =
+    quotes[Math.floor(Math.random()*quotes.length)];
+
+  // Save ticked chapters and restore on reload
+  function updateChapterProgress() {
+    const checkboxes = document.querySelectorAll('.chapters-list .chapter');
+    let stateArr = [];
+    checkboxes.forEach((ch, i) => stateArr[i] = ch.checked ? 1 : 0);
+    localStorage.setItem('jee_chapter_progress', JSON.stringify(stateArr));
+
+    const total = checkboxes.length;
+    const done = stateArr.filter(x => x).length;
+    const percent = total ? Math.round((done / total) * 100) : 0;
+    document.getElementById('chapter-progress').value = percent;
+    document.getElementById('chapter-progress-percent').innerText = percent + "%";
+  }
+
+  window.onload = function() {
+    const checkboxes = document.querySelectorAll('.chapters-list .chapter');
+    let stateArr;
+    try {
+      stateArr = JSON.parse(localStorage.getItem('jee_chapter_progress')) || [];
+    } catch (e) { stateArr = []; }
+    checkboxes.forEach((ch, i) => {
+      ch.checked = !!stateArr[i];
+      ch.addEventListener('change', updateChapterProgress);
+    });
+    updateChapterProgress();
+  };
+</script>
+
+</body>
+</html>
