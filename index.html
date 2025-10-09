@@ -21,6 +21,59 @@
   --calendar-border: #fd1d1d;
 }
 
+
+@media (max-width: 700px) {
+  /* Theme toggle fix */
+  .theme-toggle {
+    top: 10px !important;
+    right: 20px !important;
+    font-size: 1.15em;
+    z-index: 110;
+  }
+
+  /* Header and timer spacing */
+  .banner {
+    font-size: 1.3em !important;
+    padding: 28px 0 26px 0 !important;
+  }
+  #timer {
+    margin-top: 18px !important;
+    margin-bottom: 28px !important;
+    font-size: 1.9em !important;
+  }
+
+  /* Increase line height globally for better spacing */
+  body, .main-content, .chapters-box, .motivate, .quote-box {
+    line-height: 1.4 !important;
+  }
+  
+  /* Calendar fixes */
+  .calendar-widget {
+    width: 98vw !important;
+    max-width: 98vw !important;
+    padding: 14px 14px !important;
+    box-sizing: border-box;
+    overflow-x: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .calendar-table {
+    min-width: 360px;
+  }
+
+  /* Prevent calendar border clipping */
+  .calendar-widget, .calendar-widget table {
+    border-right: 2px solid var(--calendar-border);
+  }
+
+  /* Center align calendar content */
+  .calendar-widget form, .calendar-widget table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
 /* Prevent horizontal scroll */
 html, body {
   overflow-x: hidden;
@@ -870,5 +923,6 @@ document.getElementById("calendarForm").onsubmit = function(e){
 </script>
 </body>
 </html>
+
 
 
