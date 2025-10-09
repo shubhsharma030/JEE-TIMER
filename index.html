@@ -6,17 +6,40 @@
   <title>JEE Mains 2026 Countdown</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Rubik:500&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --main-bg: linear-gradient(135deg, #23272A 0%, #274690 100%);
+      --card-bg: rgba(31, 30, 72, 0.78);
+      --accent: #FFD600;
+      --progress-bar: linear-gradient(90deg, #74f5a3 20%, #fd1d1d 65%, #FFD600 100%);
+      --banner-1: #ff2e63;
+      --banner-2: #fd1d1d;
+      --motiv-bg: #ffdc00bb;
+      --motiv-color: #343434;
+      --calendar-bg: #1d275aee;
+      --calendar-accent: #FFD600;
+      --calendar-border: #fd1d1d;
+    }
     body {
       margin: 0;
       min-height: 100vh;
       font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
       color: #fff;
-      background: linear-gradient(135deg, #23272A 0%, #274690 100%);
+      background: var(--main-bg);
       position: relative;
       overflow-x: hidden;
+      transition: background 0.6s;
+    }
+    .bg-graphic {
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; z-index: 2;
+    }
+    body.light {
+      background: linear-gradient(135deg, #e9e9f7 0%, #d0f3ff 100%);
+      color: #2a2a2a;
     }
     .banner {
-      background: linear-gradient(90deg, #ff2e63, #fd1d1d);
+      background: linear-gradient(90deg, var(--banner-1), var(--banner-2));
       color: #fff;
       font-size: 1.6em;
       padding: 22px 0;
@@ -34,20 +57,43 @@
       0%, 100% { background: linear-gradient(90deg, #ff2e63, #fd1d1d);}
       50% { background: linear-gradient(90deg, #fd1d1d, #ff2e63);}
     }
+    .theme-toggle {
+      position: fixed;
+      top: 28px;
+      right: 30px;
+      background: #161b2b;
+      color: var(--accent);
+      border: none;
+      border-radius: 19px;
+      font-size: 1.2em;
+      box-shadow: 0 2px 16px #23272a44;
+      padding: 8px 18px 8px 17px;
+      cursor: pointer;
+      z-index: 100;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light .theme-toggle {
+      background: #ffe97a;
+      color: #274690;
+    }
     .main-content {
       margin-top: 130px;
       max-width: 670px;
       margin-left: auto;
       margin-right: auto;
       padding: 40px 5vw;
-      background: rgba(31, 30, 72, 0.78);
+      background: var(--card-bg);
       border-radius: 18px;
       box-shadow: 0 6px 36px rgba(0,0,50,0.18);
       position: relative;
     }
+    body.light .main-content {
+      background: #ffffffd2;
+      box-shadow: 0 6px 36px #cef2ffd4;
+    }
     .desc {
       font-size: 1.27em;
-      color: #FFD600;
+      color: var(--accent);
       margin-bottom: 13px;
       font-weight: 600;
       text-shadow: 0 2px 9px #240200dd;
@@ -60,10 +106,49 @@
       font-family: 'Roboto Mono', 'Consolas', monospace;
       text-align: center;
     }
+    .streak-box {
+      background: #deffdf22;
+      color: #30ec66;
+      text-align: center;
+      padding: 14px 10px 13px 10px;
+      margin: 19px 0 19px 0;
+      border-radius: 13px;
+      box-shadow: 0 2px 16px #24ffbb38;
+      font-weight: 600;
+      font-size: 1.16em;
+    }
+    .streak-btn {
+      background: #274690;
+      border: none;
+      color: #FFD600;
+      font-weight: bold;
+      border-radius: 11px;
+      padding: 9px 21px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-size: 1em;
+      box-shadow: 0 2px 10px #ffd60026;
+      transition: background 0.2s, color 0.2s;
+    }
+    .streak-btn.done {
+      background: #2d9937c7;
+      color: #fff;
+      cursor: not-allowed;
+    }
+    body.light .streak-box {
+      background: #e2fff033;
+      color: #4cb368;
+      box-shadow: 0 2px 16px #59f1b353;
+    }
+    body.light .streak-btn {
+      background: #ffe97a;
+      color: #274690;
+      box-shadow: 0 1px 8px #ffe97a38;
+    }
     .motivate {
       font-size: 1.18em;
-      background: #ffdc00bb;
-      color: #343434;
+      background: var(--motiv-bg);
+      color: var(--motiv-color);
       padding: 16px 17px;
       margin: 26px 0 8px 0;
       border-radius: 15px;
@@ -105,30 +190,20 @@
       max-height: 450px;
       overflow-y: auto;
     }
+    body.light .chapters-box {
+      background: #f7f8fade;
+      color: #2a2a2a;
+      box-shadow: 0 2px 10px #e4ffe0cc;
+    }
     @media (max-width: 700px) {
-  body { font-size: 15px; }
-  #timer { font-size: 1.6em; }
-  .motivate { font-size: 1em; padding: 12px 15px; }
-  .quote-box { font-size: 1em; padding: 14px; }
-  .chapters-list li { font-size: 0.95em; padding: 6px 5px 6px 24px; }
-}
-    @media (max-width: 700px) {
-  .main-content {
-    width: 98vw;
-    margin: 10px auto;
-    padding: 15px 3vw;
-  }
-  .syllabus-img {
-    max-width: 95vw;
-  }
-}
-
-    @media (max-width: 700px) {
-  .accent, .accent2 {
-    display: none;
-  }
-}
-
+      body { font-size: 15px; }
+      #timer { font-size: 1.6em; }
+      .motivate { font-size: 1em; padding: 12px 15px; }
+      .quote-box { font-size: 1em; padding: 14px; }
+      .chapters-list li { font-size: 0.95em; padding: 6px 5px 6px 24px; }
+      .main-content { width: 98vw; margin: 10px auto; padding: 15px 3vw; }
+      .calendar-widget { font-size: 0.93em; }
+    }
     .chapters-title {
       font-size: 1.13em;
       color: #FFD600;
@@ -137,14 +212,13 @@
       text-align: center;
     }
     .chapters-list {
-  list-style-type: none;
-  padding-left: 0;
-  column-count: 1;
-}
-
-@media (min-width: 700px) {
-  .chapters-list { column-count: 2; }
-}
+      list-style-type: none;
+      padding-left: 0;
+      column-count: 1;
+    }
+    @media (min-width: 700px) {
+      .chapters-list { column-count: 2; }
+    }
     .chapters-list li {
       font-size: 1.05em;
       background: rgba(45,45,75,0.13);
@@ -185,16 +259,13 @@
       background: #292e76;
       border: none;
     }
-    #chapter-progress::-webkit-progress-bar {
-      background: #292e76;
-      border-radius: 11px;
-    }
+    #chapter-progress::-webkit-progress-bar { background: #292e76; border-radius: 11px;}
     #chapter-progress::-webkit-progress-value {
-      background: linear-gradient(90deg, #fd1d1d 40%, #FFD600 90%);
+      background: var(--progress-bar);
       border-radius: 11px;
     }
     #chapter-progress::-moz-progress-bar {
-      background: linear-gradient(90deg, #fd1d1d 40%, #FFD600 90%);
+      background: var(--progress-bar);
       border-radius: 11px;
     }
     .progress-percent {
@@ -204,6 +275,75 @@
       font-family: Rubik, Arial, sans-serif;
       font-weight: 600;
     }
+
+    .section-divider {
+      border: none; border-top: 2.7px dashed #FFD600;
+      margin: 38px auto 5px auto; max-width: 200px;
+    }
+    .calendar-widget {
+      background: var(--calendar-bg);
+      border-radius: 14px;
+      padding: 19px 13px 17px 13px;
+      margin: 38px 0 9px 0;
+      box-shadow: 0 6px 24px #ffd60033, 0 2px 24px #00ffe718;
+      color: var(--calendar-accent);
+      border: 2px solid var(--calendar-border);
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+    body.light .calendar-widget {
+      background: #fffbe7e1;
+      color: #274690;
+      border: 2px solid #ffe97a;
+      box-shadow: 0 2px 14px #ffe97a23;
+    }
+    .calendar-widget input[type="date"], .calendar-widget input[type="text"] {
+      border: 1.6px solid #FFD600;
+      border-radius: 6px;
+      padding: 6px 11px;
+      font-size: 1em;
+      margin: 3px 6px;
+      width: 130px;
+      margin-bottom: 6px;
+    }
+    .calendar-widget input[type="text"] { width: 180px;}
+    .calendar-widget button {
+      background: #FFD600;
+      color: #23272A;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-left: 8px;
+      padding: 7px 18px;
+      cursor: pointer;
+      font-size: 1em;
+      margin-bottom: 9px;
+      box-shadow: 0 2px 8px #ffd6002a;
+      transition: background 0.2s, color 0.2s;
+    }
+    .calendar-widget button:hover { background: #fd1d1d; color: #fff;}
+    .calendar-table {
+      margin: 11px auto 1px auto;
+      width: 93%;
+      border-collapse: collapse;
+    }
+    .calendar-table th, .calendar-table td {
+      border-bottom: 1px solid #ffd6005a;
+      padding: 6px 5px;
+      text-align: left;
+      font-size: 1em;
+    }
+    .calendar-table th {
+      color: #FFD600;
+      font-weight: bold;
+      font-size: 1.07em;
+      background: #27469013;
+    }
+    .calendar-table td { color: #fff;}
+    body.light .calendar-table th { color: #274690; background: #ffe97a22;}
+    body.light .calendar-table td { color: #222;}
     .footer {
       text-align: center;
       font-size: 0.97em;
@@ -235,9 +375,13 @@
   </style>
 </head>
 <body>
+  <svg class="bg-graphic" width="100%" height="180" viewBox="0 0 1440 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute; top: 0; left: 0; z-index: 2;">
+    <path opacity="0.19" d="M0,48 C240,171 480,25 720,110 C960,195 1200,72 1440,100 L1440,180 L0,180 Z" fill="#81f7e5"/>
+  </svg>
   <div class="banner">
-    &#9888; Only <span id="daysLeft"></span> days left! Give your best for JEE Mains 2026! &#9888;
+    🚀 Only <span id="daysLeft"></span> days left! Give your best for JEE Mains 2026! ☀️
   </div>
+  <button class="theme-toggle" id="themeToggle" title="Switch Theme">🌙</button>
   <div class="accent"></div>
   <div class="accent2"></div>
   <div class="main-content">
@@ -245,18 +389,22 @@
       Countdown to January 20, 2026, 12:00 AM IST (JEE Mains 2026)
     </div>
     <div id="timer"></div>
+    <div class="streak-box" id="streakBox">
+      Study Streak: <span id="streakCount">0</span> days<br />
+      <button class="streak-btn" id="streakBtn">✔️ Study Complete</button>
+      <div id="lastStreak"></div>
+    </div>
     <div class="motivate">
       Every second counts! Stay focused, revise tough topics, and practice MCQs & previous year papers.<br>Your hard work now shapes your JEE rank!
     </div>
     <div class="quote-box" id="daily-quote">
       "Success is the sum of small efforts, repeated day in and day out."
     </div>
-
     <div class="syllabus-title">
       Chapter-wise Syllabus Checklist
     </div>
     <div class="chapters-box">
-      <ul class="chapters-list" id="chapters-list">
+     <ul class="chapters-list" id="chapters-list">
         <!-- Physics -->
         <li><input type="checkbox" class="chapter" />Physics and Measurement</li>
         <li><input type="checkbox" class="chapter" />Kinematics</li>
@@ -334,79 +482,237 @@
         <li><input type="checkbox" class="chapter" />Probability</li>
         <li><input type="checkbox" class="chapter" />Trigonometry</li>
       </ul>
+
     </div>
     <div class="progress-bar-wrap">
       <div class="progress-label">Syllabus Completed:</div>
       <progress id="chapter-progress" value="0" max="100"></progress>
       <span class="progress-percent" id="chapter-progress-percent">0%</span>
     </div>
+    <hr class="section-divider" />
+    <div class="calendar-widget" id="calendarWidget">
+      <b style="font-size:1.25em; vertical-align:middle;">🗓️ Exam Calendar</b>
+      <br>Add your mock/exam dates!
+      <form id="calendarForm">
+        <input type="date" id="calDate" required>
+        <input type="text" id="calEvent" placeholder="Event name" required>
+        <button type="submit">Add</button>
+      </form>
+      <table class="calendar-table" id="calendarTable">
+        <thead>
+          <tr><th>Date</th><th>Event</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
   <div class="footer">
-    Powered by your dedication & AI reminders | All the best!
+    <span style="font-size:1.2em;">💡</span> Powered by your dedication & AI reminders | All the best!
   </div>
-  <script>
-  function updateCountdown() {
-    const target = new Date("2026-01-20T00:00:00+05:30").getTime();
-    const now = new Date().getTime();
-    const diff = target - now;
-    if (diff <= 0) {
-      document.getElementById("timer").innerHTML = "Time's up!";
-      document.getElementById("daysLeft").innerHTML = "0";
-      return;
+<script>
+// -------- THEME TOGGLE --------
+const themeToggle = document.getElementById("themeToggle");
+function applyTheme(theme) {
+  if (theme === "light") {
+    document.body.classList.add("light");
+    themeToggle.innerText = "🌞";
+  } else {
+    document.body.classList.remove("light");
+    themeToggle.innerText = "🌙";
+  }
+}
+let savedTheme = localStorage.getItem("jee_theme_mode") || "dark";
+applyTheme(savedTheme);
+themeToggle.onclick = function() {
+  savedTheme = (savedTheme === "dark") ? "light" : "dark";
+  localStorage.setItem("jee_theme_mode", savedTheme);
+  applyTheme(savedTheme);
+};
+
+// -------- COUNTDOWN --------
+function updateCountdown() {
+  const target = new Date("2026-01-20T00:00:00+05:30").getTime();
+  const now = new Date().getTime();
+  const diff = target - now;
+  if (diff <= 0) {
+    document.getElementById("timer").innerHTML = "Time's up!";
+    document.getElementById("daysLeft").innerHTML = "0";
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  document.getElementById("timer").innerHTML =
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+  document.getElementById("daysLeft").innerText = days;
+}
+setInterval(updateCountdown, 1000); updateCountdown();
+
+// -------- MOTIVATIONAL QUOTE --------
+const quotes = [
+  "Push yourself, because no one else is going to do it for you.",
+  "Great things never come from comfort zones.",
+  "Don't watch the clock. Do what it does – keep going.",
+  "Success is the sum of small efforts, repeated day in and day out.",
+  "Every day brings new opportunities and new lessons.",
+  "Work hard in silence, let your success make the noise.",
+  "Believe in yourself more than anyone else.",
+  "Victory is not always winning the battle... but rising every time you fall."
+];
+document.getElementById("daily-quote").innerText =
+  quotes[Math.floor(Math.random()*quotes.length)];
+
+// -------- SYLLABUS CHECKLIST --------
+function updateChapterProgress() {
+  const checkboxes = document.querySelectorAll('.chapters-list .chapter');
+  let stateArr = [];
+  checkboxes.forEach((ch, i) => stateArr[i] = ch.checked ? 1 : 0);
+  localStorage.setItem('jee_chapter_progress', JSON.stringify(stateArr));
+  const total = checkboxes.length;
+  const done = stateArr.filter(x => x).length;
+  const percent = total ? Math.round((done / total) * 100) : 0;
+  document.getElementById('chapter-progress').value = percent;
+  document.getElementById('chapter-progress-percent').innerText = percent + "%";
+}
+window.onload = function() {
+  const checkboxes = document.querySelectorAll('.chapters-list .chapter');
+  let stateArr;
+  try {
+    stateArr = JSON.parse(localStorage.getItem('jee_chapter_progress')) || [];
+  } catch (e) { stateArr = []; }
+  checkboxes.forEach((ch, i) => {
+    ch.checked = !!stateArr[i];
+    ch.addEventListener('change', updateChapterProgress);
+  });
+  updateChapterProgress();
+  updateStreakBox();
+  preloadMockTests();
+  loadCalendar();
+};
+
+// -------- STUDY STREAK TRACKER --------
+function dateNum() {
+  let now = new Date();
+  return now.getFullYear() * 10000 + (now.getMonth()+1)*100 + now.getDate();
+}
+function prevDateNum() {
+  let d = new Date();
+  d.setDate(d.getDate()-1);
+  return d.getFullYear() * 10000 + (d.getMonth()+1)*100 + d.getDate();
+}
+const streakCount = document.getElementById("streakCount");
+const streakBtn = document.getElementById("streakBtn");
+const lastStreak = document.getElementById("lastStreak");
+function updateStreakBox() {
+  let record = JSON.parse(localStorage.getItem("jee_streak") || "{}");
+  let count = record.count || 0;
+  let last = record.last || 0;
+  streakCount.innerText = count;
+  const today = dateNum();
+  if (last == today) {
+    streakBtn.classList.add("done");
+    streakBtn.disabled = true;
+    streakBtn.innerText = "✔️ Already marked today!";
+    lastStreak.innerText = "(Well done!)";
+  } else {
+    streakBtn.classList.remove("done");
+    streakBtn.disabled = false;
+    streakBtn.innerText = "✔️ Study Complete";
+    if(last==prevDateNum()) {
+      lastStreak.innerText = "Yesterday marked ✔️";
+    } else {
+      lastStreak.innerText = last ? "Last streak on " +
+        String(last).replace(/^(\d{4})(\d{2})(\d{2})$/, '$3/$2/$1')
+        : "";
     }
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-    document.getElementById("timer").innerHTML =
-      days + "d " + hours + "h " + minutes + "m " + seconds + "s";
-    document.getElementById("daysLeft").innerText = days;
   }
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
+}
+streakBtn.onclick = function() {
+  let record = JSON.parse(localStorage.getItem("jee_streak") || "{}");
+  let today = dateNum();
+  let newCount = (record.last == prevDateNum()) ? ((record.count || 0) + 1) : 1;
+  record = {count: newCount, last: today};
+  localStorage.setItem("jee_streak", JSON.stringify(record));
+  updateStreakBox();
+};
 
-  const quotes = [
-    "Push yourself, because no one else is going to do it for you.",
-    "Great things never come from comfort zones.",
-    "Don't watch the clock. Do what it does – keep going.",
-    "Success is the sum of small efforts, repeated day in and day out.",
-    "Every day brings new opportunities and new lessons.",
-    "Work hard in silence, let your success make the noise.",
-    "Believe in yourself more than anyone else.",
-    "Victory is not always winning the battle... but rising every time you fall."
+// -------- CALENDAR WIDGET --------
+function formatDate(d) {
+  // '2025-11-16' → '16 Nov 2025'
+  const mArr = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  let parts = d.split("-");
+  if (parts.length !== 3) return d;
+  return `${parts[2]} ${mArr[parseInt(parts[1],10)-1]} ${parts[0]}`;
+}
+
+function preloadMockTests() {
+  const mockTests = [
+    {date:"2025-11-02", name:"Milestone 9 - Main"},
+    {date:"2025-11-16", name:"AITS 2 - Main"},
+    {date:"2025-12-07", name:"AITS 3 - Advanced"},
+    {date:"2025-12-21", name:"AITS 4 - Main"},
+    {date:"2026-01-04", name:"AITS 5 - Main"},
+    {date:"2026-01-11", name:"AITS 6 - Main"},
+    {date:"2026-01-13", name:"AITS 7 - Main"},
+    {date:"2026-01-15", name:"AITS 8 - Main"},
+    {date:"2026-01-18", name:"AITS 9 - Main"},
+    {date:"2026-01-20", name:"AITS 10 - Main"},
+    {date:"2026-02-08", name:"AITS 11 - Main"},
+    {date:"2026-02-15", name:"AITS 12 - Main"},
+    {date:"2026-02-22", name:"AITS 13 - Advanced"},
+    {date:"2026-03-01", name:"AITS 14 - Main"},
+    {date:"2026-03-08", name:"AITS 15 - Advanced"},
+    {date:"2026-03-22", name:"AITS 16 - Main"},
+    {date:"2026-03-29", name:"AITS 17 - Main"},
+    {date:"2026-04-19", name:"AITS 18 - Advanced"},
+    {date:"2026-04-26", name:"AITS 19 - Advanced"},
+    {date:"2026-05-03", name:"AITS 20 - Advanced"},
+    {date:"2026-05-10", name:"AITS 21 - Advanced"},
+    {date:"2026-05-17", name:"AITS 22 - Advanced"}
   ];
-  document.getElementById("daily-quote").innerText =
-    quotes[Math.floor(Math.random()*quotes.length)];
-
-  // Save ticked chapters and restore on reload
-  function updateChapterProgress() {
-    const checkboxes = document.querySelectorAll('.chapters-list .chapter');
-    let stateArr = [];
-    checkboxes.forEach((ch, i) => stateArr[i] = ch.checked ? 1 : 0);
-    localStorage.setItem('jee_chapter_progress', JSON.stringify(stateArr));
-
-    const total = checkboxes.length;
-    const done = stateArr.filter(x => x).length;
-    const percent = total ? Math.round((done / total) * 100) : 0;
-    document.getElementById('chapter-progress').value = percent;
-    document.getElementById('chapter-progress-percent').innerText = percent + "%";
+  let already = JSON.parse(localStorage.getItem("jee_calendar_events")) || [];
+  if (already.length === 0) {
+    localStorage.setItem("jee_calendar_events", JSON.stringify(mockTests));
   }
+}
 
-  window.onload = function() {
-    const checkboxes = document.querySelectorAll('.chapters-list .chapter');
-    let stateArr;
-    try {
-      stateArr = JSON.parse(localStorage.getItem('jee_chapter_progress')) || [];
-    } catch (e) { stateArr = []; }
-    checkboxes.forEach((ch, i) => {
-      ch.checked = !!stateArr[i];
-      ch.addEventListener('change', updateChapterProgress);
-    });
-    updateChapterProgress();
-  };
+function loadCalendar() {
+  let events = [];
+  try {
+    events = JSON.parse(localStorage.getItem("jee_calendar_events")) || [];
+  } catch (e) { events = []; }
+  let tbody = document.querySelector("#calendarTable tbody");
+  tbody.innerHTML = "";
+  if (events.length == 0) {
+    tbody.innerHTML = "<tr><td colspan='3'>No events yet! Add above.</td></tr>";
+    return;
+  }
+  events.forEach((ev, i) => {
+    let tr = document.createElement("tr");
+    tr.innerHTML =
+      `<td>${formatDate(ev.date)}</td><td>${ev.name}</td>
+       <td><button style="color:#fd1d1d; background:none; border:none; font-weight:bold; cursor:pointer;" onclick="deleteCalendarEvent(${i})">✕</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+function deleteCalendarEvent(idx) {
+  let events = JSON.parse(localStorage.getItem("jee_calendar_events")) || [];
+  events.splice(idx, 1);
+  localStorage.setItem("jee_calendar_events", JSON.stringify(events));
+  loadCalendar();
+}
+document.getElementById("calendarForm").onsubmit = function(e){
+  e.preventDefault();
+  let date = document.getElementById("calDate").value;
+  let name = document.getElementById("calEvent").value;
+  if(!date || !name) return;
+  let events = JSON.parse(localStorage.getItem("jee_calendar_events")) || [];
+  events.push({date, name});
+  localStorage.setItem("jee_calendar_events", JSON.stringify(events));
+  document.getElementById("calendarForm").reset();
+  loadCalendar();
+};
 </script>
-
 </body>
 </html>
-
-
