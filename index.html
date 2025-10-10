@@ -20,15 +20,14 @@
       --calendar-border: #fd1d1d;
     }
     body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
-      color: #fff;
-      background: var(--main-bg);
-      position: relative;
-      overflow-x: hidden;
-      transition: background 0.6s;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  box-sizing: border-box;
+}
     .bg-graphic {
       pointer-events: none;
       position: absolute;
@@ -77,16 +76,21 @@
       color: #274690;
     }
     .main-content {
-      margin-top: 130px;
-      max-width: 670px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 40px 5vw;
-      background: var(--card-bg);
-      border-radius: 18px;
-      box-shadow: 0 6px 36px rgba(0,0,50,0.18);
-      position: relative;
-    }
+  margin-top: 110px; /* Adjust for banner height */
+  width: 100%;
+  max-width: 670px;
+  padding: 40px 5vw;
+  background: var(--card-bg);
+  border-radius: 18px;
+  box-shadow: 0 6px 36px rgba(0,0,50,0.18);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* centers children horizontally */
+  justify-content: center;  /* centers children vertically */
+  margin-left: auto;
+  margin-right: auto;
+}
     body.light .main-content {
       background: #ffffffd2;
       box-shadow: 0 6px 36px #cef2ffd4;
@@ -99,6 +103,43 @@
       text-shadow: 0 2px 9px #240200dd;
       text-align: center;
     }
+
+    .bg-graphic, .accent, .accent2 {
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  width: 100vw;
+  min-width: 100vw;
+}
+
+    @media (max-width: 700px) {
+  body { font-size: 15px; }
+  .main-content { max-width: 99vw; width: 99vw; padding: 15px 1vw; }
+  /* ...rest stays same... */
+}
+
+    .desc,
+#timer,
+.streak-box,
+.motivate,
+.quote-box,
+.syllabus-title,
+.chapters-title,
+.progress-bar-wrap,
+.calendar-widget,
+.footer {
+  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
     #timer {
       font-size: 2.5em;
       margin: 30px 0 20px 0;
@@ -716,3 +757,4 @@ document.getElementById("calendarForm").onsubmit = function(e){
 </script>
 </body>
 </html>
+
